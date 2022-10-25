@@ -1,7 +1,8 @@
-from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, Boolean
-from sqlalchemy.orm import sessionmaker, declarative_base, relationship
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
+from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
+
 
 class User(Base):
     __tablename__ = 'user'
@@ -10,7 +11,7 @@ class User(Base):
     fullname = Column('fullname', String(40), unique=True)
     password = Column('password', String(254))
     is_login = Column('is login', Boolean())
-    
+
     resumes = relationship('Resume', back_populates='user')
 
     def __str__(self):
@@ -99,20 +100,3 @@ class Social(Base):
 
     def __str__(self):
         return f'{self.name}'
-
-
-def getDBSession():
-    engine = create_engine('sqlite:///database.db')
-    Base.metadata.create_all(engine)
-
-    return sessionmaker(bind=engine)
-
-
-# sql param only supports lambda functions
-def doSQL(sql):
-    session = getDBSession()()
-    result = sql(session)
-    session.expunge_all()
-    session.close_all()
-
-    return result
