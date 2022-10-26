@@ -85,12 +85,16 @@ def profile():
 @app.route('/create_resume')
 def create_resume():
     user = get_user(request)
-    uid = user['id']
 
     if not user['is_login']:
         return render_template('page_not_found.html')
 
-    return render_template('create_resume.html')
+    context = {
+        'user': user,
+        'serialized_user': obj_to_json(user)
+    }
+
+    return render_template('create_resume.html', context=context)
 
 
 @app.route('/404')
