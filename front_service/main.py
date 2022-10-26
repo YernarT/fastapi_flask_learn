@@ -27,6 +27,14 @@ def index():
     return render_template('index.html', context=context)
 
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
 if __name__ == '__main__':
     app.debug = True
     # app.secret_key = 'N0GiuzUGHkrbfGRazAV2QgxAZy3AJWHd'
