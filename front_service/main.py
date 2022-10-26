@@ -58,13 +58,45 @@ def logout():
 @app.route('/profile')
 def profile():
     user = get_user(request)
+    uid = user['id']
+
+    if not user['is_login']:
+        return render_template('page_not_found.html')
+
+    import requests
+
+    response = requests.get(
+        f'http://127.0.0.1:8000/resume/{uid}').json()
+
+    if not response['data']:
+        return redirect(url_for('create_resume'))
 
     context = {
         'user': user,
-        'serialized_user': obj_to_json(user)
+        'serialized_user': obj_to_json(user),
+
+        'data': response['data'],
+        'serialized_resume': obj_to_json(response['data']),
     }
 
     return render_template('profile.html', context=context)
+
+
+@app.route('/create_resume')
+def create_resume():
+    user = get_user(request)
+    uid = user['id']
+
+    if not user['is_login']:
+        return render_template('page_not_found.html')
+
+    return render_template('create_resume.html')
+
+
+@app.route('/404')
+def page_not_found():
+
+    return render_template('page_not_found.html')
 
 
 if __name__ == '__main__':
