@@ -1,18 +1,22 @@
+def get_uid(request):
+    """return uid or None"""
+
+    return request.cookies.get('uid')
+
+
 def get_user(request):
-    user = {}
-    uid = request.cookies.get('uid')
+    """return user or None"""
+    import requests
 
-    if uid is None:
-        user['is_login'] = False
-    else:
-        import requests
-        
-        response = requests.get(
-            f'http://127.0.0.1:8000/is_logged/{uid}').json()
-        
-        if not response.get('is_success'):
-            user['is_login'] = False
-        else:
-            user['is_login'] =  response.get('data').get('is_login')
+    uid = get_uid(request)
 
-    return user
+    if not uid:
+        return None
+
+    response = requests.get(
+        f'http://127.0.0.1:8000/users/{uid}').json()
+
+    if not response.get('is_success'):
+        return None
+
+    return response['data']['user']
