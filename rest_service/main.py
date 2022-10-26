@@ -1,10 +1,24 @@
 from fastapi import FastAPI, Body
+from fastapi.middleware.cors import CORSMiddleware
 
 from sqlalchemy.exc import NoResultFound, IntegrityError
 from .db import User
 from .utils import doSQL, getDBSession, is_authenticated
 
 app = FastAPI()
+
+origins = [
+    "http://127.0.0.1",
+    "http://127.0.0.1:5000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get('/users')
@@ -55,7 +69,7 @@ async def users(fullname=Body(None), password=Body(None)):
     except IntegrityError:
         return {'is_success': False, 'message': 'Fullname is already taken', 'data': None}
 
-    return {'is_success': True, 'message': '', 'data': {
+    return {'is_success': True, 'message': 'Registration success', 'data': {
         'user': user
     }}
 
