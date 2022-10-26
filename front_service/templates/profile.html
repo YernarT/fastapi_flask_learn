@@ -27,6 +27,9 @@
 		/>
 
 		<title>Document</title>
+
+		<!-- Icons -->
+		<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 	</head>
 
 	<body class="profile-page">
@@ -40,7 +43,7 @@
 
 					{% if context.user.is_login %}
 					<div class="d-flex gap-3">
-						<a href="{{ url_for('profile') }}" class="text-primary">Profile</a>
+						<a href="{{ url_for('index') }}" class="text-primary">Home</a>
 						<a href="{{ url_for('logout') }}" class="text-danger">Logout</a>
 					</div>
 					{% else %}
@@ -51,6 +54,224 @@
 				</div>
 			</div>
 		</header>
+
+		<div class="resume">
+			<!-- Left -->
+			<div class="resume_left">
+				<div class="resume_profile">
+					<img
+						src="{{ url_for('static', filename = 'img/bota.jpg') }}"
+						alt="resume picture"
+					/>
+				</div>
+
+				<div class="resume_content">
+					<!-- Info -->
+					<div class="resume_item resume_info">
+						<div class="title">
+							<p class="bold">AITU Bota</p>
+							<p class="regular">Full Stack Developer</p>
+						</div>
+
+						<ul>
+							<li>
+								<div class="icon">
+									<i class="fas fa-map-signs"></i>
+								</div>
+								<div class="data">
+									AITU Dormitory <br />
+									Astana City
+								</div>
+							</li>
+							<li>
+								<div class="icon">
+									<i class="fas fa-mobile-alt"></i>
+								</div>
+								<div class="data">+771 452 6555</div>
+							</li>
+							<li>
+								<div class="icon">
+									<i class="fas fa-envelope"></i>
+								</div>
+								<div class="data">lovely_bota@gmail.com</div>
+							</li>
+							<li>
+								<div class="icon">
+									<i class="fab fa-weebly"></i>
+								</div>
+								<div class="data">www.botabota.com</div>
+							</li>
+						</ul>
+					</div>
+					<!-- Skills -->
+					<div class="resume_item resume_skills">
+						<div class="title">
+							<p class="bold">skill's</p>
+						</div>
+						<ul>
+							<li>
+								<div class="skill_name">HTML</div>
+								<div class="skill_progress">
+									<span style="width: 80%"></span>
+								</div>
+								<div class="skill_per">80%</div>
+							</li>
+							<li>
+								<div class="skill_name">CSS</div>
+								<div class="skill_progress">
+									<span style="width: 70%"></span>
+								</div>
+								<div class="skill_per">70%</div>
+							</li>
+							<li>
+								<div class="skill_name">JavaScript</div>
+								<div class="skill_progress">
+									<span style="width: 90%"></span>
+								</div>
+								<div class="skill_per">90%</div>
+							</li>
+							<li>
+								<div class="skill_name">Python</div>
+								<div class="skill_progress">
+									<span style="width: 60%"></span>
+								</div>
+								<div class="skill_per">60%</div>
+							</li>
+							<li>
+								<div class="skill_name">Database</div>
+								<div class="skill_progress">
+									<span style="width: 77%"></span>
+								</div>
+								<div class="skill_per">77%</div>
+							</li>
+						</ul>
+					</div>
+					<!-- Social -->
+					<div class="resume_item resume_social">
+						<div class="title">
+							<p class="bold">Social</p>
+						</div>
+						<ul>
+							<li>
+								<div class="icon">
+									<i class="fab fa-facebook-square"></i>
+								</div>
+								<div class="data">
+									<p class="semi-bold">Facebook</p>
+									<p>bota@facebook</p>
+								</div>
+							</li>
+							<li>
+								<div class="icon">
+									<i class="fab fa-twitter-square"></i>
+								</div>
+								<div class="data">
+									<p class="semi-bold">Twitter</p>
+									<p>bota@twitter</p>
+								</div>
+							</li>
+							<li>
+								<div class="icon">
+									<i class="fab fa-youtube"></i>
+								</div>
+								<div class="data">
+									<p class="semi-bold">Youtube</p>
+									<p>bota_yt@youtube</p>
+								</div>
+							</li>
+							<li>
+								<div class="icon">
+									<i class="fab fa-linkedin"></i>
+								</div>
+								<div class="data">
+									<p class="semi-bold">Linkedin</p>
+									<p>bota_dev@linkedin</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- Right -->
+			<div class="resume_right">
+				<div class="resume_item resume_about">
+					<div class="title">
+						<p class="bold">About Me</p>
+					</div>
+					<p>
+						Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa
+						repellat in, sequi recusandae deleniti eius numquam quae? Veritatis
+						quidem error accusamus, eligendi necessitatibus quis laboriosam,
+						voluptatum nobis consectetur, porro eos.
+					</p>
+				</div>
+				<div class="resume_item resume_work">
+					<div class="title">
+						<p class="bold">Work Experience</p>
+					</div>
+					<ul>
+						<li>
+							<div class="date">2014 - 2016</div>
+							<div class="info">
+								<p class="semi-bold">Halyk Bank</p>
+								<p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Nostrum, voluptatibus!
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="date">2016 - 2021</div>
+							<div class="info">
+								<p class="semi-bold">Google</p>
+								<p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Nostrum, voluptatibus!
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="date">2021 - Present</div>
+							<div class="info">
+								<p class="semi-bold">IT IS IT</p>
+								<p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Nostrum, voluptatibus!
+								</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="resume_item resume_education">
+					<div class="title">
+						<p class="bold">Education</p>
+					</div>
+					<ul>
+						<li>
+							<div class="date">1999 - 2010</div>
+							<div class="info">
+								<p class="semi-bold">Astana 73 High School</p>
+								<p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Nostrum, voluptatibus!
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="date">2010 - 2014</div>
+							<div class="info">
+								<p class="semi-bold">Astana IT University</p>
+								<p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Nostrum, voluptatibus!
+								</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
 		<!-- Bootstrap Bundle with Popper -->
 		<script
