@@ -133,7 +133,7 @@ async def is_logged(uid: int):
         user = session.query(User).filter_by(id=uid).one()
     except NoResultFound:
         return {'is_success': False, 'message': 'Non-existent user', 'data': None}
-    
+
     return {'is_success': True, 'message': '',
             'data': {'is_login': user.is_login}}
 
@@ -161,3 +161,15 @@ async def login(fullname=Body(None), password=Body(None)):
             'data': {'uid': user.id}}
 
 
+@app.post('/logout/{uid}')
+async def logout(uid: int):
+    session = getDBSession()()
+    try:
+        user = session.query(User).filter_by(id=uid).one()
+    except NoResultFound:
+        return {'is_success': False, 'message': 'Non-existent user', 'data': None}
+
+    user.is_login = False
+    session.commit()
+
+    return {'is_success': True, 'message': 'Logout smoothly', 'data': None}
