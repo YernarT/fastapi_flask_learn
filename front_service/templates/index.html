@@ -110,18 +110,15 @@
 			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 			crossorigin="anonymous"
 		></script>
-		
+
 		<!-- Logout script -->
 		<script>
-			const user = '{{ context.user }}';
+			const user = JSON.parse('{{ context.user | safe }}');
 
 			window.addEventListener('beforeunload', () => {
 				if (user && user.is_login) {
-					fetch('http://127.0.0.1:8000/logout', {
+					fetch(`http://127.0.0.1:8000/logout/${user.id}`, {
 						method: 'post',
-						body: {
-							uid: user.id,
-						},
 					});
 				}
 			});
