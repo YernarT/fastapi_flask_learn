@@ -39,10 +39,13 @@
 					</a>
 
 					{% if context.user.is_login %}
-					<a href="#">Profile</a>
+					<div class="d-flex gap-3">
+						<a href="{{ url_for('profile') }}" class="text-primary">Profile</a>
+						<a href="{{ url_for('logout') }}" class="text-danger">Logout</a>
+					</div>
 					{% else %}
 					<a href="{{ url_for('login') }}" class="btn btn-primary">
-						<span>Login</span>
+						<span>Login {{ context.user.is_login }}</span>
 					</a>
 					{% endif %}
 				</div>
@@ -113,15 +116,8 @@
 
 		<!-- Logout script -->
 		<script>
-			const user = JSON.parse('{{ context.user | safe }}');
-
-			window.addEventListener('beforeunload', () => {
-				if (user && user.is_login) {
-					fetch(`http://127.0.0.1:8000/logout/${user.id}`, {
-						method: 'post',
-					});
-				}
-			});
+			const user = JSON.parse('{{ context.serialized_user | safe }}');
+			console.log(user);
 		</script>
 	</body>
 </html>
