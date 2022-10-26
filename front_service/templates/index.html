@@ -39,9 +39,9 @@
 					</a>
 
 					{% if context.user.is_login %}
-					<a href="">Profile</a>
+					<a href="#">Profile</a>
 					{% else %}
-					<a href="" class="btn btn-primary">
+					<a href="{{ url_for('login') }}" class="btn btn-primary">
 						<span>Login</span>
 					</a>
 					{% endif %}
