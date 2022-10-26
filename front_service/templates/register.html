@@ -57,7 +57,7 @@
 
 			<button type="submit" class="btn btn-primary w-100 my-3">Register</button>
 
-            <div class="d-flex justify-content-between align-items-center">
+			<div class="d-flex justify-content-between align-items-center">
 				<span>Have Account?</span>
 				<a href="{{ url_for('login') }}">Login now!</a>
 			</div>
@@ -72,7 +72,7 @@
 
 		<!-- Logout script -->
 		<script>
-			const user = JSON.parse('{{ context.user | safe }}');
+			const user = JSON.parse('{{ context.serialized_user | safe }}');
 
 			window.addEventListener('beforeunload', () => {
 				if (user && user.is_login) {
@@ -108,7 +108,7 @@
 						}
 
 						alert(response.message);
-                        alert('You can be login right now!')
+						alert('You can be login right now!');
 					})
 					.catch(error => {
 						console.log(error);

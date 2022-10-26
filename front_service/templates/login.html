@@ -72,8 +72,7 @@
 
 		<!-- Logout script -->
 		<script>
-			const user = JSON.parse('{{ context.user | safe }}');
-			console.log(user);
+			const user = JSON.parse('{{ context.serialized_user | safe }}');
 
 			window.addEventListener('beforeunload', () => {
 				if (user && user.is_login) {
