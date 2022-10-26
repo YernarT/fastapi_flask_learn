@@ -108,8 +108,9 @@
 							return;
 						}
 
-						document.cookie = `uid: ${random}`;
+						document.cookie = `uid=${response.data.uid};`;
 						alert(response.message);
+						location.pathname = '/';
 					})
 					.catch(error => {
 						console.log(error);
