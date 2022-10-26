@@ -74,16 +74,6 @@
 		<script>
 			const user = JSON.parse('{{ context.serialized_user | safe }}');
 
-			window.addEventListener('beforeunload', () => {
-				if (user && user.is_login) {
-					fetch(`http://127.0.0.1:8000/logout/${user.id}`, {
-						method: 'post',
-					});
-				}
-			});
-		</script>
-
-		<script>
 			const loginForm = document.querySelector('.login-form');
 			function handleSubmit(e) {
 				e.preventDefault();
