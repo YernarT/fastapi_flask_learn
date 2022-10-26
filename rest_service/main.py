@@ -126,18 +126,6 @@ async def users(id: int, uid=Body(None)):
     return {'is_success': True, 'message': 'Successfully deleted', 'data': None}
 
 
-@app.get('/is_logged/{uid}')
-async def is_logged(uid: int):
-    session = getDBSession()()
-    try:
-        user = session.query(User).filter_by(id=uid).one()
-    except NoResultFound:
-        return {'is_success': False, 'message': 'Non-existent user', 'data': None}
-
-    return {'is_success': True, 'message': '',
-            'data': {'is_login': user.is_login}}
-
-
 @app.post('/login')
 async def login(fullname=Body(None), password=Body(None)):
     if fullname == None:
