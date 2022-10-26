@@ -82,6 +82,7 @@
 }
 
 .resume .resume_left ul li .icon {
+	flex: 0 0 35px;
 	width: 35px;
 	height: 35px;
 	margin-right: 15px;
@@ -104,6 +105,8 @@
 
 .resume .resume_left ul li .data {
 	color: #b1eaff;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .resume .resume_left .resume_skills ul li {
@@ -155,6 +158,11 @@
 
 .resume .resume_right .bold {
 	color: #0bb5f4;
+}
+
+.resume .resume_right .resume_about p {
+	white-space: normal;
+	word-break: break-all;
 }
 
 .resume .resume_right .resume_work ul,
