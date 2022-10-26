@@ -26,7 +26,7 @@
 	</head>
 
 	<body class="auth-page">
-		<form class="register-form" method="post">
+		<form class="login-form" method="post">
 			<div class="brand mb-3 text-center">
 				<i class="bi bi-bootstrap"></i>
 			</div>
@@ -55,11 +55,11 @@
 				/>
 			</div>
 
-			<button type="submit" class="btn btn-primary w-100 my-3">Register</button>
+			<button type="submit" class="btn btn-primary w-100 my-3">Login</button>
 
-            <div class="d-flex justify-content-between align-items-center">
-				<span>Have Account?</span>
-				<a href="{{ url_for('login') }}">Login now!</a>
+			<div class="d-flex justify-content-between align-items-center">
+				<span>Not Account?</span>
+				<a href="{{ url_for('register') }}">Register now!</a>
 			</div>
 		</form>
 
@@ -72,7 +72,7 @@
 
 		<!-- Logout script -->
 		<script>
-			const user = '{{ context.user }}';
+			const user = JSON.parse('{{ context.user | safe }}');
 
 			window.addEventListener('beforeunload', () => {
 				if (user && user.is_login) {
@@ -85,14 +85,14 @@
 				}
 			});
 		</script>
-		
+
 		<script>
-			const registerForm = document.querySelector('.register-form');
+			const loginForm = document.querySelector('.login-form');
 			function handleSubmit(e) {
 				e.preventDefault();
-				const formData = new FormData(registerForm);
+				const formData = new FormData(loginForm);
 
-				fetch('http://127.0.0.1:8000/users', {
+				fetch('http://127.0.0.1:8000/login', {
 					method: 'post',
 					headers: {
 						'Accept': 'application/json',
@@ -110,14 +110,14 @@
 							return;
 						}
 
+						document.cookie = `uid: ${random}`;
 						alert(response.message);
-                        alert('You can be login right now!')
 					})
 					.catch(error => {
 						console.log(error);
 					});
 			}
-			registerForm.addEventListener('submit', handleSubmit);
+			loginForm.addEventListener('submit', handleSubmit);
 		</script>
 	</body>
 </html>
