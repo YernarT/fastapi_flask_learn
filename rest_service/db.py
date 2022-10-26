@@ -32,11 +32,14 @@ class Resume(Base):
     email = Column('email', String(254))
     site = Column('site', String(128))
     about_me = Column('about_me', String(254))
+    facebook = Column('facebook', String(40))
+    twitter = Column('twitter', String(40))
+    youtube = Column('youtube', String(40))
+    linkedin = Column('linkedin', String(40))
 
     work_experiences = relationship('WorkExperience', back_populates='resume')
     educations = relationship('Education', back_populates='resume')
     skills = relationship('Skill', back_populates='resume')
-    socials = relationship('Social', back_populates='resume')
 
     def __str__(self):
         return f'{self.email}'
@@ -83,20 +86,6 @@ class Skill(Base):
 
     name = Column('name', String(20))
     level = Column('level', Integer)
-
-    def __str__(self):
-        return f'{self.name}'
-
-
-class Social(Base):
-    __tablename__ = 'social'
-
-    id = Column(Integer, primary_key=True)
-    resume_id = Column(Integer, ForeignKey('resume.id'))
-    resume = relationship('Resume', back_populates='socials')
-
-    name = Column('name', String(20))
-    url = Column('url', String(128))
 
     def __str__(self):
         return f'{self.name}'
