@@ -76,7 +76,7 @@ def profile():
         'serialized_user': obj_to_json(user),
 
         'data': response['data'],
-        'serialized_resume': obj_to_json(response['data']),
+        'serialized_data': obj_to_json(response['data']),
     }
 
     return render_template('profile.html', context=context)
