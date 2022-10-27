@@ -2,7 +2,7 @@ from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 
 from sqlalchemy.exc import NoResultFound, IntegrityError
-from .db import User
+from .db import User, Resume, WorkExperience, Education, Skill
 from .utils import doSQL, getDBSession, is_authenticated
 
 app = FastAPI()
@@ -161,3 +161,153 @@ async def logout(uid: int):
     session.commit()
 
     return {'is_success': True, 'message': 'Logout smoothly', 'data': None}
+
+
+@app.get('/resume/{uid}')
+async def resume(uid: int):
+    if uid == None:
+        return {'is_success': False, 'message': 'Need Login First', 'data': None}
+    else:
+        is_login = is_authenticated(uid)
+        if not is_login:
+            return {'is_success': False, 'message': 'Need Login First', 'data': None}
+
+    session = getDBSession()()
+    try:
+        user = session.query(User).filter_by(id=uid).one()
+    except NoResultFound:
+        return {'is_success': False, 'message': 'Non-existent user', 'data': None}
+
+    result = {}
+    if not user.resumes:
+        result = None
+    else:
+        resume = user.resumes[0]
+
+        result['resume'] = resume
+        result['work_experiences'] = resume.work_experiences
+        result['educations'] = resume.educations
+        result['skills'] = resume.skills
+
+    return {'is_success': True, 'message': '', 'data': result}
+
+
+@app.post('/resume/{uid}')
+async def resume(uid: int,
+                 position=Body(None),
+                 country=Body(None),
+                 address=Body(None),
+                 phone=Body(None),
+                 email=Body(None),
+                 site=Body(None),
+                 about_me=Body(None),
+                 facebook=Body(None),
+                 twitter=Body(None),
+                 youtube=Body(None),
+                 linkedin=Body(None)):
+    if uid == None:
+        return {'is_success': False, 'message': 'Need Login First', 'data': None}
+    else:
+        is_login = is_authenticated(uid)
+        if not is_login:
+            return {'is_success': False, 'message': 'Need Login First', 'data': None}
+
+    session = getDBSession()()
+    try:
+        user = session.query(User).filter_by(id=uid).one()
+    except NoResultFound:
+        return {'is_success': False, 'message': 'Non-existent user', 'data': None}
+
+    if user.resumes:
+        return {'is_success': False, 'message': 'Already have resume', 'data': None}
+    else:
+
+        resume = Resume(user_id=uid,
+                        position=position,
+                        country=country,
+                        address=address,
+                        phone=phone,
+                        email=email,
+                        site=site,
+                        about_me=about_me,
+                        facebook=facebook,
+                        twitter=twitter,
+                        youtube=youtube,
+                        linkedin=linkedin)
+
+        session = getDBSession()()
+        session.add(resume)
+        session.commit()
+
+        work_experiences = [
+            WorkExperience(
+                resume_id=1,
+                date_from=2022,
+                date_to=None,
+                workspace='IT IS IT',
+                description='''
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ratione labore assumenda nostrum voluptate unde minima voluptatibus accusamus! Consequatur provident, cum vero ducimus accusantium nam nisi commodi tempora alias laborum.
+                ''',
+            ),
+            WorkExperience(
+                resume_id=1,
+                date_from=2020,
+                date_to=2022,
+                workspace='Google',
+                description='''
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ratione labore assumenda nostrum voluptate unde minima voluptatibus accusamus! Consequatur provident, cum vero ducimus accusantium nam nisi commodi tempora alias laborum.
+                ''',
+            ),
+            WorkExperience(
+                resume_id=1,
+                date_from=2016,
+                date_to=2020,
+                workspace='Halyk Bank',
+                description='''
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ratione labore assumenda nostrum voluptate unde minima voluptatibus accusamus! Consequatur provident, cum vero ducimus accusantium nam nisi commodi tempora alias laborum.
+                ''',
+            )
+        ]
+
+        educations = [
+            Education(
+                resume_id=1,
+                date_from=2016,
+                date_to=2012,
+                agency='Astana IT Univercity',
+                description='''
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ratione labore assumenda nostrum voluptate unde minima voluptatibus accusamus! Consequatur provident, cum vero ducimus accusantium nam nisi commodi tempora alias laborum.
+                ''',
+            ),
+            Education(
+                resume_id=1,
+                date_from=2001,
+                date_to=2012,
+                agency='Astana No.73 High Scholl',
+                description='''
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ratione labore assumenda nostrum voluptate unde minima voluptatibus accusamus! Consequatur provident, cum vero ducimus accusantium nam nisi commodi tempora alias laborum.
+                ''',
+            )
+        ]
+
+        skills = [
+            Skill(resume_id=1, name='HTML5', level=85),
+            Skill(resume_id=1, name='CSS3', level=75),
+            Skill(resume_id=1, name='JavaScript', level=94),
+            Skill(resume_id=1, name='Python', level=88),
+        ]
+
+        # for work_experience in work_experiences:
+        session = getDBSession()()
+        session.bulk_save_objects(work_experiences)
+        session.commit()
+        # for education in educations:
+        session = getDBSession()()
+        session.bulk_save_objects(educations)
+        session.commit()
+        # for skill in skills:
+        session = getDBSession()()
+        session.bulk_save_objects(skills)
+        session.commit()
+
+    return {'is_success': True, 'message': 'Create resume successfully', 'data': None}
