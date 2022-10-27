@@ -210,7 +210,8 @@ async def resume(uid: int,
     else:
         is_login = is_authenticated(uid)
         if not is_login:
-            return {'is_success': False, 'message': 'Need Login First', 'data': None}
+            pass
+            # return {'is_success': False, 'message': 'Need Login First', 'data': None}
 
     session = getDBSession()()
     try:
@@ -219,7 +220,8 @@ async def resume(uid: int,
         return {'is_success': False, 'message': 'Non-existent user', 'data': None}
 
     if user.resumes:
-        return {'is_success': False, 'message': 'Already have resume', 'data': None}
+        pass
+        # return {'is_success': False, 'message': 'Already have resume', 'data': None}
     else:
 
         resume = Resume(user_id=uid,
@@ -239,8 +241,7 @@ async def resume(uid: int,
         session.add(resume)
         session.commit()
 
-        work_experiences = [
-            WorkExperience(
+        work_experience1 = WorkExperience(
                 resume_id=1,
                 date_from=2022,
                 date_to=None,
@@ -248,8 +249,8 @@ async def resume(uid: int,
                 description='''
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ratione labore assumenda nostrum voluptate unde minima voluptatibus accusamus! Consequatur provident, cum vero ducimus accusantium nam nisi commodi tempora alias laborum.
                 ''',
-            ),
-            WorkExperience(
+            )
+        work_experience2 = WorkExperience(
                 resume_id=1,
                 date_from=2020,
                 date_to=2022,
@@ -257,8 +258,8 @@ async def resume(uid: int,
                 description='''
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ratione labore assumenda nostrum voluptate unde minima voluptatibus accusamus! Consequatur provident, cum vero ducimus accusantium nam nisi commodi tempora alias laborum.
                 ''',
-            ),
-            WorkExperience(
+            )
+        work_experience3 = WorkExperience(
                 resume_id=1,
                 date_from=2016,
                 date_to=2020,
@@ -266,11 +267,9 @@ async def resume(uid: int,
                 description='''
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ratione labore assumenda nostrum voluptate unde minima voluptatibus accusamus! Consequatur provident, cum vero ducimus accusantium nam nisi commodi tempora alias laborum.
                 ''',
-            )
-        ]
+        )
 
-        educations = [
-            Education(
+        education1 = Education(
                 resume_id=1,
                 date_from=2016,
                 date_to=2012,
@@ -278,8 +277,8 @@ async def resume(uid: int,
                 description='''
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ratione labore assumenda nostrum voluptate unde minima voluptatibus accusamus! Consequatur provident, cum vero ducimus accusantium nam nisi commodi tempora alias laborum.
                 ''',
-            ),
-            Education(
+            )
+        education2 = Education(
                 resume_id=1,
                 date_from=2001,
                 date_to=2012,
@@ -287,27 +286,31 @@ async def resume(uid: int,
                 description='''
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ratione labore assumenda nostrum voluptate unde minima voluptatibus accusamus! Consequatur provident, cum vero ducimus accusantium nam nisi commodi tempora alias laborum.
                 ''',
-            )
-        ]
+        )
 
-        skills = [
-            Skill(resume_id=1, name='HTML5', level=85),
-            Skill(resume_id=1, name='CSS3', level=75),
-            Skill(resume_id=1, name='JavaScript', level=94),
-            Skill(resume_id=1, name='Python', level=88),
-        ]
+        skill1 = Skill(resume_id=1, name='HTML5', level=85)
+        skill2 = Skill(resume_id=1, name='CSS3', level=75)
+        skill3 = Skill(resume_id=1, name='JavaScript', level=94)
+        skill4 = Skill(resume_id=1, name='Python', level=88)
+        
 
         # for work_experience in work_experiences:
         session = getDBSession()()
-        session.bulk_save_objects(work_experiences)
+        session.add(work_experience1)
+        session.add(work_experience2)
+        session.add(work_experience3)
         session.commit()
         # for education in educations:
         session = getDBSession()()
-        session.bulk_save_objects(educations)
+        session.add(education1)
+        session.add(education2)
         session.commit()
         # for skill in skills:
         session = getDBSession()()
-        session.bulk_save_objects(skills)
+        session.add(skill1)
+        session.add(skill2)
+        session.add(skill3)
+        session.add(skill4)
         session.commit()
 
     return {'is_success': True, 'message': 'Create resume successfully', 'data': None}
