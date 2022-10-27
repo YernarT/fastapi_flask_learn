@@ -69,8 +69,8 @@
 					<!-- Info -->
 					<div class="resume_item resume_info">
 						<div class="title">
-							<p class="bold">AITU Bota</p>
-							<p class="regular">Full Stack Developer</p>
+							<p class="bold">{{ context.user.fullname }}</p>
+							<p class="regular">{{ context.data.resume.position }}</p>
 						</div>
 
 						<ul>
@@ -79,27 +79,27 @@
 									<i class="fas fa-map-signs"></i>
 								</div>
 								<div class="data">
-									AITU Dormitory <br />
-									Astana City
+									{{ context.data.resume.address }} <br />
+									{{ context.data.resume.country }}
 								</div>
 							</li>
 							<li>
 								<div class="icon">
 									<i class="fas fa-mobile-alt"></i>
 								</div>
-								<div class="data">+771 452 6555</div>
+								<div class="data">{{ context.data.resume.phone }}</div>
 							</li>
 							<li>
 								<div class="icon">
 									<i class="fas fa-envelope"></i>
 								</div>
-								<div class="data">lovely_bota@gmail.com</div>
+								<div class="data">{{ context.data.resume.email }}</div>
 							</li>
 							<li>
 								<div class="icon">
 									<i class="fab fa-weebly"></i>
 								</div>
-								<div class="data">www.botabota.com</div>
+								<div class="data">{{ context.data.resume.site }}</div>
 							</li>
 						</ul>
 					</div>
@@ -109,41 +109,15 @@
 							<p class="bold">skill's</p>
 						</div>
 						<ul>
+							{% for skill in context.data.skills %}
 							<li>
-								<div class="skill_name">HTML</div>
+								<div class="skill_name">{{ skill.name }}</div>
 								<div class="skill_progress">
-									<span style="width: 80%"></span>
+									<span style="width: {{ skill.level }}%"></span>
 								</div>
-								<div class="skill_per">80%</div>
+								<div class="skill_per">{{ skill.level }}%</div>
 							</li>
-							<li>
-								<div class="skill_name">CSS</div>
-								<div class="skill_progress">
-									<span style="width: 70%"></span>
-								</div>
-								<div class="skill_per">70%</div>
-							</li>
-							<li>
-								<div class="skill_name">JavaScript</div>
-								<div class="skill_progress">
-									<span style="width: 90%"></span>
-								</div>
-								<div class="skill_per">90%</div>
-							</li>
-							<li>
-								<div class="skill_name">Python</div>
-								<div class="skill_progress">
-									<span style="width: 60%"></span>
-								</div>
-								<div class="skill_per">60%</div>
-							</li>
-							<li>
-								<div class="skill_name">Database</div>
-								<div class="skill_progress">
-									<span style="width: 77%"></span>
-								</div>
-								<div class="skill_per">77%</div>
-							</li>
+							{% endfor %}
 						</ul>
 					</div>
 					<!-- Social -->
@@ -158,7 +132,7 @@
 								</div>
 								<div class="data">
 									<p class="semi-bold">Facebook</p>
-									<p>bota@facebook</p>
+									<p>{{ context.data.resume.facebook }}</p>
 								</div>
 							</li>
 							<li>
@@ -167,7 +141,7 @@
 								</div>
 								<div class="data">
 									<p class="semi-bold">Twitter</p>
-									<p>bota@twitter</p>
+									<p>{{ context.data.resume.twitter }}</p>
 								</div>
 							</li>
 							<li>
@@ -176,7 +150,7 @@
 								</div>
 								<div class="data">
 									<p class="semi-bold">Youtube</p>
-									<p>bota_yt@youtube</p>
+									<p>{{ context.data.resume.youtube }}</p>
 								</div>
 							</li>
 							<li>
@@ -185,7 +159,7 @@
 								</div>
 								<div class="data">
 									<p class="semi-bold">Linkedin</p>
-									<p>bota_dev@linkedin</p>
+									<p>{{ context.data.resume.linkedin }}</p>
 								</div>
 							</li>
 						</ul>
@@ -199,48 +173,25 @@
 					<div class="title">
 						<p class="bold">About Me</p>
 					</div>
-					<p>
-						Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa
-						repellat in, sequi recusandae deleniti eius numquam quae? Veritatis
-						quidem error accusamus, eligendi necessitatibus quis laboriosam,
-						voluptatum nobis consectetur, porro eos.
-					</p>
+					<p>{{ context.data.resume.about_me }}</p>
 				</div>
 				<div class="resume_item resume_work">
 					<div class="title">
 						<p class="bold">Work Experience</p>
 					</div>
 					<ul>
+						{% for work_experience in context.data.work_experiences %}
 						<li>
-							<div class="date">2014 - 2016</div>
+							<div class="date">
+								{{ work_experience.date_from }} - {{ work_experience.date_to }}
+							</div>
 							<div class="info">
-								<p class="semi-bold">Halyk Bank</p>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Nostrum, voluptatibus!
-								</p>
+								<p class="semi-bold">{{ work_experience.workspace }}</p>
+								<p>{{ work_experience.description }}</p>
 							</div>
 						</li>
-						<li>
-							<div class="date">2016 - 2021</div>
-							<div class="info">
-								<p class="semi-bold">Google</p>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Nostrum, voluptatibus!
-								</p>
-							</div>
-						</li>
-						<li>
-							<div class="date">2021 - Present</div>
-							<div class="info">
-								<p class="semi-bold">IT IS IT</p>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Nostrum, voluptatibus!
-								</p>
-							</div>
-						</li>
+
+						{% endfor %}
 					</ul>
 				</div>
 				<div class="resume_item resume_education">
@@ -248,26 +199,17 @@
 						<p class="bold">Education</p>
 					</div>
 					<ul>
+						{% for education in context.data.educations %}
 						<li>
-							<div class="date">1999 - 2010</div>
+							<div class="date">
+								{{ education.date_from }} - {{ education.date_to }}
+							</div>
 							<div class="info">
-								<p class="semi-bold">Astana 73 High School</p>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Nostrum, voluptatibus!
-								</p>
+								<p class="semi-bold">{{ education.agency }}</p>
+								<p>{{ education.description }}</p>
 							</div>
 						</li>
-						<li>
-							<div class="date">2010 - 2014</div>
-							<div class="info">
-								<p class="semi-bold">Astana IT University</p>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Nostrum, voluptatibus!
-								</p>
-							</div>
-						</li>
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
@@ -283,6 +225,7 @@
 		<!-- Own Script -->
 		<script>
 			const user = JSON.parse('{{ context.serialized_user | safe }}');
+			const data = JSON.parse('{{ context.serialized_data | safe }}');
 		</script>
 	</body>
 </html>
